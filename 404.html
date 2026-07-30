@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Verification</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f4f4; }
+        .card { background: white; padding: 30px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .success { color: green; font-weight: bold; font-size: 22px; margin-bottom: 15px; }
+        .error { color: red; font-weight: bold; font-size: 22px; }
+        h3 { margin: 10px 0; color: #333; }
+        p { margin: 5px 0; color: #444; }
+        .details { font-size: 14px; color: #666; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="member-card">
+        <h2>Loading...</h2>
+    </div>
+
+    <script>
+        const members = {
+            "ta-v-1": { name: "মোঃ মেশকাতুল ইসলাম মিশুক", role: "টিম কো-অর্ডিনেটর", event: "ক্যারিয়ার মিট আপ দিনাজপুর-২০২৬" },
+            "ta-v-2": { name: "মো: রিদয়", role: "ভলান্টিয়ার", info: "মেকানিক্যাল, ৭ম সেমিস্টার" },
+            "ta-v-4": { name: "মো: সোহাগ রানা", role: "ভলান্টিয়ার", info: "ইলেকট্রিক্যাল, ৭ম সেমিস্টার" },
+            "ta-v-5": { name: "মো মোফাজ্জল হোসেন", role: "ভলান্টিয়ার", info: "ইলেকট্রিক্যাল, ৭ম সেমিস্টার" },
+            "ta-v-6": { name: "মোছাঃ সুমনা আক্তার", role: "ভলান্টিয়ার", info: "সিভিল, ৭ম পর্ব" },
+            "ta-v-7": { name: "মোছাঃ শোভা আক্তার", role: "ভলান্টিয়ার", info: "সিভিল, ৭ম পর্ব" },
+            "ta-v-8": { name: "নূরনবী রাহমান", role: "ভলান্টিয়ার", info: "সিভিল, ৭ম সেমিস্টার" },
+            "ta-v-9": { name: "মোঃ শাহারিয়ার আহমেদ জয়", role: "ভলান্টিয়ার", info: "সিভিল, ৫ম সেমিস্টার" },
+            "ta-v-10": { name: "মোছাঃ স্মৃতি আক্তার", role: "ভলান্টিয়ার", info: "সিভিল, ৭ম পর্ব" },
+            "ta-v-11": { name: "মোঃ রাকিব হাসান", role: "ভলান্টিয়ার", info: "পাওয়ার, প্রাক্তন ছাত্র ২০-২১ সেশন" },
+            "md-tanjid": { name: "Md. Tanjid", role: "Coordinator", info: "Towhid Associates" }
+        };
+
+        const path = window.location.pathname.replace(/\/$/, ""); 
+        const memberId = path.split('/').pop(); 
+        const card = document.getElementById('member-card');
+
+        if (path.includes('/team/')) {
+            if (members[memberId]) {
+                const member = members[memberId];
+                
+                let extraInfo = "";
+                if (member.event) {
+                    extraInfo = `<p><strong>ইভেন্ট:</strong> ${member.event}</p>`;
+                } else if (member.info) {
+                    extraInfo = `<p>${member.info}</p>`;
+                }
+
+                card.innerHTML = `
+                    <div class="success">✅ Verified Member</div>
+                    <h3>${member.name}</h3>
+                    <p><strong>পদবি:</strong> ${member.role}</p>
+                    ${extraInfo}
+                    <div class="details">ID: ${memberId}</div>
+                `;
+            } else {
+                card.innerHTML = `
+                    <div class="error">❌ Member Not Found</div>
+                    <p>This ID is invalid or missing.</p>
+                `;
+            }
+        } else {
+            card.innerHTML = `
+                <div class="error">404 - Page Not Found</div>
+                <br>
+                <a href="/">Go to Homepage</a>
+            `;
+        }
+    </script>
+
+</body>
+</html>
